@@ -34,6 +34,7 @@ biome_json_formatter     = { workspace = true, features = ["serde"] }
 biome_json_parser        = { workspace = true }
 biome_json_syntax        = { workspace = true }
 biome_rowan              = { workspace = true, features = ["serde"] }
+biome_rule_options       = { workspace = true }
 bpaf                     = { workspace = true }
 camino                   = { workspace = true }
 oxc_resolver             = { workspace = true }
@@ -56,6 +57,7 @@ schema = [
   "biome_analyze/schema",
   "biome_json_formatter/schema",
   "biome_js_formatter/schema",
+  "biome_rule_options/schema",
 ]
 
 [dev-dependencies]
