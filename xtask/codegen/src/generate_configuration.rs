@@ -191,7 +191,9 @@ pub(crate) fn generate_rule_options(mode: Mode) -> Result<()> {
     biome_graphql_analyze::visit_registry(&mut assist_visitor);
 
     let mut rule_names = BTreeSet::default();
-    let mut lib_exports = vec![];
+    let mut lib_exports = vec![quote! {
+        pub mod shared::*;
+    }];
 
     for group in lint_visitor.groups.values() {
         for (rule_name, _) in group {

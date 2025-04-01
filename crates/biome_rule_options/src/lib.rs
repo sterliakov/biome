@@ -214,6 +214,7 @@ pub mod no_void_type_return;
 pub mod no_with;
 pub mod no_yoda_expression;
 pub mod organize_imports;
+mod shared;
 pub mod use_adjacent_overload_signatures;
 pub mod use_alt_text;
 pub mod use_anchor_content;
