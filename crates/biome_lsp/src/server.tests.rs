@@ -809,46 +809,75 @@ async fn pull_diagnostics() -> Result<()> {
             PublishDiagnosticsParams {
                 uri: url!("document.js"),
                 version: Some(0),
-                diagnostics: vec![lsp::Diagnostic {
-                    range: Range {
-                        start: Position {
-                            line: 0,
-                            character: 13,
-                        },
-                        end: Position {
-                            line: 0,
-                            character: 14,
-                        },
-                    },
-                    severity: Some(lsp::DiagnosticSeverity::ERROR),
-                    code: Some(lsp::NumberOrString::String(String::from(
-                        "lint/correctness/noConstAssign",
-                    ))),
-                    code_description: Some(CodeDescription {
-                        href: Url::parse("https://biomejs.dev/linter/rules/no-const-assign")
-                            .unwrap()
-                    }),
-                    source: Some(String::from("biome")),
-                    message: String::from("Can't assign a because it's a constant.",),
-                    related_information: Some(vec![lsp::DiagnosticRelatedInformation {
-                        location: lsp::Location {
-                            uri: url!("document.js"),
-                            range: Range {
-                                start: Position {
-                                    line: 0,
-                                    character: 6,
-                                },
-                                end: Position {
-                                    line: 0,
-                                    character: 7,
-                                },
+                diagnostics: vec![
+                    lsp::Diagnostic {
+                        range: Range {
+                            start: Position {
+                                line: 0,
+                                character: 6,
+                            },
+                            end: Position {
+                                line: 0,
+                                character: 7,
                             },
                         },
-                        message: "This is where the variable is defined as constant. ".to_string(),
-                    }]),
-                    tags: None,
-                    data: None,
-                }],
+                        severity: Some(lsp::DiagnosticSeverity::WARNING),
+                        code: Some(lsp::NumberOrString::String(String::from(
+                            "lint/correctness/noUnusedVariables",
+                        ))),
+                        code_description: Some(lsp::CodeDescription {
+                            href: "https://biomejs.dev/linter/rules/no-unused-variables"
+                                .parse()
+                                .unwrap(),
+                        }),
+                        source: Some(String::from("biome")),
+                        message: String::from("This variable is unused.",),
+                        related_information: None,
+                        tags: None,
+                        data: None,
+                    },
+                    lsp::Diagnostic {
+                        range: Range {
+                            start: Position {
+                                line: 0,
+                                character: 13,
+                            },
+                            end: Position {
+                                line: 0,
+                                character: 14,
+                            },
+                        },
+                        severity: Some(lsp::DiagnosticSeverity::ERROR),
+                        code: Some(lsp::NumberOrString::String(String::from(
+                            "lint/correctness/noConstAssign",
+                        ))),
+                        code_description: Some(CodeDescription {
+                            href: Url::parse("https://biomejs.dev/linter/rules/no-const-assign")
+                                .unwrap()
+                        }),
+                        source: Some(String::from("biome")),
+                        message: String::from("Can't assign a because it's a constant.",),
+                        related_information: Some(vec![lsp::DiagnosticRelatedInformation {
+                            location: lsp::Location {
+                                uri: url!("document.js"),
+                                range: Range {
+                                    start: Position {
+                                        line: 0,
+                                        character: 6,
+                                    },
+                                    end: Position {
+                                        line: 0,
+                                        character: 7,
+                                    },
+                                },
+                            },
+                            message: "This is where the variable is defined as constant. "
+                                .to_string(),
+                        }]),
+                        tags: None,
+                        data: None,
+                    }
+                ],
             }
         ))
     );
@@ -884,28 +913,114 @@ async fn pull_diagnostics_of_syntax_rules() -> Result<()> {
             PublishDiagnosticsParams {
                 uri: url!("document.js"),
                 version: Some(0),
-                diagnostics: vec![lsp::Diagnostic {
-                    range: Range {
-                        start: Position {
-                            line: 0,
-                            character: 16,
+                diagnostics: vec![
+                    lsp::Diagnostic {
+                        range: Range {
+                            start: Position {
+                                line: 0,
+                                character: 10,
+                            },
+                            end: Position {
+                                line: 0,
+                                character: 14,
+                            },
                         },
-                        end: Position {
-                            line: 0,
-                            character: 20,
-                        },
+                        severity: Some(lsp::DiagnosticSeverity::WARNING),
+                        code: Some(lsp::NumberOrString::String(String::from(
+                            "lint/correctness/noUnusedPrivateClassMembers",
+                        ))),
+                        code_description: Some(lsp::CodeDescription {
+                            href:
+                                "https://biomejs.dev/linter/rules/no-unused-private-class-members"
+                                    .parse()
+                                    .unwrap(),
+                        }),
+                        source: Some(String::from("biome")),
+                        message: String::from(
+                            "This private class member is defined but never used.",
+                        ),
+                        related_information: None,
+                        tags: None,
+                        data: None,
                     },
-                    severity: Some(lsp::DiagnosticSeverity::ERROR),
-                    code: Some(lsp::NumberOrString::String(String::from(
-                        "syntax/correctness/noDuplicatePrivateClassMembers",
-                    ))),
-                    code_description: None,
-                    source: Some(String::from("biome")),
-                    message: String::from("Duplicate private class member \"#foo\"",),
-                    related_information: None,
-                    tags: None,
-                    data: None,
-                }],
+                    lsp::Diagnostic {
+                        range: Range {
+                            start: Position {
+                                line: 0,
+                                character: 16,
+                            },
+                            end: Position {
+                                line: 0,
+                                character: 20,
+                            },
+                        },
+                        severity: Some(lsp::DiagnosticSeverity::WARNING),
+                        code: Some(lsp::NumberOrString::String(String::from(
+                            "lint/correctness/noUnusedPrivateClassMembers",
+                        ))),
+                        code_description: Some(lsp::CodeDescription {
+                            href:
+                                "https://biomejs.dev/linter/rules/no-unused-private-class-members"
+                                    .parse()
+                                    .unwrap(),
+                        }),
+                        source: Some(String::from("biome")),
+                        message: String::from(
+                            "This private class member is defined but never used.",
+                        ),
+                        related_information: None,
+                        tags: None,
+                        data: None,
+                    },
+                    lsp::Diagnostic {
+                        range: Range {
+                            start: Position {
+                                line: 0,
+                                character: 16,
+                            },
+                            end: Position {
+                                line: 0,
+                                character: 20,
+                            },
+                        },
+                        severity: Some(lsp::DiagnosticSeverity::ERROR),
+                        code: Some(lsp::NumberOrString::String(String::from(
+                            "syntax/correctness/noDuplicatePrivateClassMembers",
+                        ))),
+                        code_description: None,
+                        source: Some(String::from("biome")),
+                        message: String::from("Duplicate private class member \"#foo\"",),
+                        related_information: None,
+                        tags: None,
+                        data: None,
+                    },
+                    lsp::Diagnostic {
+                        range: Range {
+                            start: Position {
+                                line: 0,
+                                character: 6,
+                            },
+                            end: Position {
+                                line: 0,
+                                character: 7,
+                            },
+                        },
+                        severity: Some(lsp::DiagnosticSeverity::WARNING),
+                        code: Some(lsp::NumberOrString::String(String::from(
+                            "lint/correctness/noUnusedVariables",
+                        ))),
+                        code_description: Some(lsp::CodeDescription {
+                            href: "https://biomejs.dev/linter/rules/no-unused-variables"
+                                .parse()
+                                .unwrap(),
+                        }),
+                        source: Some(String::from("biome")),
+                        message: String::from("This class is unused.",),
+                        related_information: None,
+                        tags: None,
+                        data: None,
+                    }
+                ],
             }
         ))
     );
@@ -941,46 +1056,75 @@ async fn pull_diagnostics_from_new_file() -> Result<()> {
             PublishDiagnosticsParams {
                 uri: url!("untitled-1"),
                 version: Some(0),
-                diagnostics: vec![lsp::Diagnostic {
-                    range: Range {
-                        start: Position {
-                            line: 0,
-                            character: 13,
-                        },
-                        end: Position {
-                            line: 0,
-                            character: 14,
-                        },
-                    },
-                    severity: Some(lsp::DiagnosticSeverity::ERROR),
-                    code: Some(lsp::NumberOrString::String(String::from(
-                        "lint/correctness/noConstAssign",
-                    ))),
-                    code_description: Some(CodeDescription {
-                        href: Url::parse("https://biomejs.dev/linter/rules/no-const-assign")
-                            .unwrap()
-                    }),
-                    source: Some(String::from("biome")),
-                    message: String::from("Can't assign a because it's a constant.",),
-                    related_information: Some(vec![lsp::DiagnosticRelatedInformation {
-                        location: lsp::Location {
-                            uri: url!("untitled-1"),
-                            range: Range {
-                                start: Position {
-                                    line: 0,
-                                    character: 6,
-                                },
-                                end: Position {
-                                    line: 0,
-                                    character: 7,
-                                },
+                diagnostics: vec![
+                    lsp::Diagnostic {
+                        range: Range {
+                            start: Position {
+                                line: 0,
+                                character: 6,
+                            },
+                            end: Position {
+                                line: 0,
+                                character: 7,
                             },
                         },
-                        message: "This is where the variable is defined as constant. ".to_string(),
-                    }]),
-                    tags: None,
-                    data: None,
-                }],
+                        severity: Some(lsp::DiagnosticSeverity::WARNING),
+                        code: Some(lsp::NumberOrString::String(String::from(
+                            "lint/correctness/noUnusedVariables",
+                        ))),
+                        code_description: Some(lsp::CodeDescription {
+                            href: "https://biomejs.dev/linter/rules/no-unused-variables"
+                                .parse()
+                                .unwrap(),
+                        }),
+                        source: Some(String::from("biome")),
+                        message: String::from("This variable is unused.",),
+                        related_information: None,
+                        tags: None,
+                        data: None,
+                    },
+                    lsp::Diagnostic {
+                        range: Range {
+                            start: Position {
+                                line: 0,
+                                character: 13,
+                            },
+                            end: Position {
+                                line: 0,
+                                character: 14,
+                            },
+                        },
+                        severity: Some(lsp::DiagnosticSeverity::ERROR),
+                        code: Some(lsp::NumberOrString::String(String::from(
+                            "lint/correctness/noConstAssign",
+                        ))),
+                        code_description: Some(CodeDescription {
+                            href: Url::parse("https://biomejs.dev/linter/rules/no-const-assign")
+                                .unwrap()
+                        }),
+                        source: Some(String::from("biome")),
+                        message: String::from("Can't assign a because it's a constant.",),
+                        related_information: Some(vec![lsp::DiagnosticRelatedInformation {
+                            location: lsp::Location {
+                                uri: url!("untitled-1"),
+                                range: Range {
+                                    start: Position {
+                                        line: 0,
+                                        character: 6,
+                                    },
+                                    end: Position {
+                                        line: 0,
+                                        character: 7,
+                                    },
+                                },
+                            },
+                            message: "This is where the variable is defined as constant. "
+                                .to_string(),
+                        }]),
+                        tags: None,
+                        data: None,
+                    }
+                ],
             }
         ))
     );
@@ -1849,6 +1993,7 @@ async fn pull_code_actions_with_import_sorting() -> Result<()> {
 import z from "zod";
 import { test } from "./test";
 import { describe } from "node:test";
+export { z, test, describe };
 
 if(a === -0) {}
 "#,
