@@ -1417,6 +1417,7 @@ dependencies = [
  "biome_project_layout",
  "biome_rowan",
  "biome_service",
+ "biome_string_case",
  "camino",
  "countme",
  "json_comments",
